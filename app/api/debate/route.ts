@@ -51,17 +51,22 @@ export async function POST(req: NextRequest) {
 
     const context = `お題：${topic}\nあなたの立場：${aiStance}\nユーザーの立場：${userStance}\n先攻：${firstTurn === 'ai' ? 'あなた（AI）' : 'ユーザー'}\n現在のターン：${currentTurn}/15\n\n以上の条件で議論を続けてください。`
 
-    const history = messages.map((m: { role: string; content: string }) => ({
-      role: m.role === 'user' ? 'user' : 'model',
-      parts: [{ text: m.content }],
-    }))
+    // AI先攻でmessagesが空の場合は開始プロンプトを使用
+    const lastMessage = messages.length > 0
+      ? messages[messages.length - 1]
+      : { role: 'user', content: '議論を開始してください。先攻として最初の主張を述べてください。' }
+
+    const history = messages.length > 0
+      ? messages.slice(0, -1).map((m: { role: string; content: string }) => ({
+          role: m.role === 'user' ? 'user' : 'model',
+          parts: [{ text: m.content }],
+        }))
+      : []
 
     const chat = model.startChat({
       systemInstruction: DEBATE_SYSTEM_PROMPT + '\n\n' + context,
-      history: history.slice(0, -1),
+      history,
     })
-
-    const lastMessage = messages[messages.length - 1]
 
     const stream = await chat.sendMessageStream(lastMessage.content)
 
