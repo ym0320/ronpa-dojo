@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
     const genAI = new GoogleGenerativeAI(apiKey)
     const context = `お題：${topic}\nあなたの立場：${aiStance}\nユーザーの立場：${userStance}\n先攻：${firstTurn === 'ai' ? 'あなた（AI）' : 'ユーザー'}\n現在のターン：${currentTurn}/15\n\n以上の条件で議論を続けてください。`
     const model = genAI.getGenerativeModel({
-      model: 'gemini-2.5-flash-lite',
+      model: 'gemini-2.5-flash',
       systemInstruction: DEBATE_SYSTEM_PROMPT + '\n\n' + context,
     })
 
