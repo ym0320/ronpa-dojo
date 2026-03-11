@@ -1,26 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=DotGothic16&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-bg: #0a0a0f;
+  --color-panel: #0d1117;
+  --color-border: #2d5a27;
+  --color-accent: #4ade80;
+  --color-text: #e2e8f0;
+  --color-dim: #94a3b8;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: 'DotGothic16', monospace;
+}
+
+.pixel-border {
+  border: 3px solid var(--color-border);
+  box-shadow: 0 0 0 1px var(--color-border), inset 0 0 0 1px var(--color-border);
+  image-rendering: pixelated;
+}
+
+.pixel-border-accent {
+  border: 3px solid var(--color-accent);
+  box-shadow: 0 0 8px rgba(74, 222, 128, 0.3), inset 0 0 0 1px rgba(74, 222, 128, 0.1);
+}
+
+.rpg-btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  transition: all 100ms;
+  border: 3px solid #2d5a27;
+  background: linear-gradient(180deg, #0d1f0d 0%, #051005 100%);
+  color: #4ade80;
+  box-shadow: 0 4px 0 #1a3a1a;
+  image-rendering: pixelated;
+  cursor: pointer;
+}
+
+.rpg-btn:hover {
+  background: linear-gradient(180deg, #163a16 0%, #0d1f0d 100%);
+  box-shadow: 0 6px 0 #1a3a1a;
+  transform: translateY(-2px);
+}
+
+.rpg-btn:active {
+  box-shadow: 0 1px 0 #1a3a1a;
+  transform: translateY(3px);
+}
+
+.rpg-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.rpg-btn-danger {
+  border-color: #5a2727;
+  background: linear-gradient(180deg, #1f0d0d 0%, #100505 100%);
+  color: #f87171;
+  box-shadow: 0 4px 0 #3a1a1a;
+}
+
+.rpg-btn-danger:hover {
+  background: linear-gradient(180deg, #3a1616 0%, #1f0d0d 100%);
+  box-shadow: 0 6px 0 #3a1a1a;
+}
+
+.rpg-panel {
+  background: #0d1117;
+  border: 3px solid #2d5a27;
+  box-shadow: 0 0 0 1px #1a3a1a;
+}
+
+.blackboard {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.01) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-color: #0f1f14;
+}
+
+.blink {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.scanlines::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.15) 2px,
+    rgba(0,0,0,0.15) 4px
+  );
+  pointer-events: none;
+}
+
+.title-glow {
+  text-shadow: 0 0 10px #4ade80, 0 0 20px #4ade80, 0 0 40px #4ade80;
+  animation: titlePulse 2s ease-in-out infinite;
+}
+
+@keyframes titlePulse {
+  0%, 100% { text-shadow: 0 0 10px #4ade80, 0 0 20px #4ade80, 0 0 40px #4ade80; }
+  50% { text-shadow: 0 0 5px #4ade80, 0 0 10px #4ade80; }
+}
+
+.chat-bubble-user {
+  background: linear-gradient(135deg, #1a3a2a 0%, #0d2a1a 100%);
+  border: 2px solid #2d5a27;
+  border-radius: 12px 12px 4px 12px;
+}
+
+.chat-bubble-ai {
+  background: linear-gradient(135deg, #1a1a3a 0%, #0d0d2a 100%);
+  border: 2px solid #2d2d5a;
+  border-radius: 12px 12px 12px 4px;
+}
+
+.loading-dots::after {
+  content: '...';
+  animation: loadingDots 1.5s steps(4, end) infinite;
+}
+
+@keyframes loadingDots {
+  0% { content: ''; }
+  25% { content: '.'; }
+  50% { content: '..'; }
+  75% { content: '...'; }
+}
+
+input, textarea {
+  background: #0a0a0f;
+  border: 2px solid #2d5a27;
+  color: #e2e8f0;
+  font-family: 'DotGothic16', monospace;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: #4ade80;
+  box-shadow: 0 0 8px rgba(74, 222, 128, 0.3);
 }
