@@ -56,12 +56,19 @@ export async function POST(req: NextRequest) {
       ? messages[messages.length - 1]
       : { role: 'user', content: '議論を開始してください。先攻として最初の主張を述べてください。' }
 
-    const history = messages.length > 0
-      ? messages.slice(0, -1).map((m: { role: string; content: string }) => ({
-          role: m.role === 'user' ? 'user' : 'model',
-          parts: [{ text: m.content }],
-        }))
-      : []
+    // historyはGemini APIの制約上、必ずuserから始まる必要がある
+    // AI先攻でhistoryの先頭がmodelになる場合は、初回プロンプトをuserとして先頭に追加
+    const historyMessages = messages.length > 0 ? messages.slice(0, -1) : []
+    const needsInitialUserTurn = historyMessages.length > 0 && historyMessages[0].role === 'ai'
+    const history = [
+      ...(needsInitialUserTurn
+        ? [{ role: 'user', parts: [{ text: '議論を開始してください。先攻として最初の主張を述べてください。' }] }]
+        : []),
+      ...historyMessages.map((m: { role: string; content: string }) => ({
+        role: m.role === 'user' ? 'user' : 'model',
+        parts: [{ text: m.content }],
+      })),
+    ]
 
     const chat = model.startChat({
       systemInstruction: DEBATE_SYSTEM_PROMPT + '\n\n' + context,
