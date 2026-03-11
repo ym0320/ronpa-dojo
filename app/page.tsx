@@ -20,7 +20,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-between py-8 px-4 relative overflow-hidden scanlines">
       {/* Background decoration */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(74,222,128,0.03)_0%,transparent_70%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(74,222,128,0.03)_0%,transparent_70%)] pointer-events-none" />
 
       {/* Ranking button */}
       <div className="w-full flex justify-between items-start">

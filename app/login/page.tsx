@@ -21,7 +21,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8 relative scanlines">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(74,222,128,0.05)_0%,transparent_70%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(74,222,128,0.05)_0%,transparent_70%)] pointer-events-none" />
 
       <div className="text-center mb-10 relative">
         <h1 className="text-3xl font-bold text-green-400 title-glow"
