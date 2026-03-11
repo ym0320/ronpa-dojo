@@ -46,7 +46,10 @@ export async function POST(req: NextRequest) {
     }
 
     const genAI = new GoogleGenerativeAI(apiKey)
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' })
+    const model = genAI.getGenerativeModel({
+      model: 'gemini-2.0-flash',
+      systemInstruction: JUDGE_SYSTEM_PROMPT,
+    })
 
     const debateLog = messages.map((m: { role: string; content: string; turnNumber: number }) =>
       `[ターン${m.turnNumber}・${m.role === 'user' ? 'ユーザー' : 'AI'}] ${m.content}`
@@ -66,7 +69,6 @@ ${debateLog}
 上記の議論を審判として評価し、指定のJSON形式で出力してください。JSONのみ出力し、他の文章は出力しないこと。`
 
     const result = await model.generateContent({
-      systemInstruction: JUDGE_SYSTEM_PROMPT,
       contents: [{ role: 'user', parts: [{ text: prompt }] }],
     })
 
