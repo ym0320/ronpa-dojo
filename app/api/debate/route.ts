@@ -47,9 +47,11 @@ export async function POST(req: NextRequest) {
     }
 
     const genAI = new GoogleGenerativeAI(apiKey)
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' })
-
     const context = `お題：${topic}\nあなたの立場：${aiStance}\nユーザーの立場：${userStance}\n先攻：${firstTurn === 'ai' ? 'あなた（AI）' : 'ユーザー'}\n現在のターン：${currentTurn}/15\n\n以上の条件で議論を続けてください。`
+    const model = genAI.getGenerativeModel({
+      model: 'gemini-2.0-flash',
+      systemInstruction: DEBATE_SYSTEM_PROMPT + '\n\n' + context,
+    })
 
     // AI先攻でmessagesが空の場合は開始プロンプトを使用
     const lastMessage = messages.length > 0
@@ -70,10 +72,7 @@ export async function POST(req: NextRequest) {
       })),
     ]
 
-    const chat = model.startChat({
-      systemInstruction: DEBATE_SYSTEM_PROMPT + '\n\n' + context,
-      history,
-    })
+    const chat = model.startChat({ history })
 
     const stream = await chat.sendMessageStream(lastMessage.content)
 
