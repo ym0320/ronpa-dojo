@@ -81,27 +81,28 @@ function JudgingContent() {
   }, [sessionId, router])
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-6 relative scanlines">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(74,222,128,0.05)_0%,transparent_70%)] pointer-events-none" />
+    <div className="min-h-screen flex flex-col items-center justify-center px-6 relative">
+      <div className="absolute inset-0 pointer-events-none"
+           style={{ background: 'radial-gradient(ellipse at center, rgba(132,94,247,0.06) 0%, transparent 70%)' }} />
 
       <div className="text-center space-y-8 w-full max-w-sm">
         <div className="text-6xl animate-bounce">⚖️</div>
         <div>
-          <h2 className="text-green-400 text-lg font-bold mb-2">判定中...</h2>
+          <h2 className="text-purple-500 text-lg font-bold mb-2">判定中...</h2>
           <p className="text-gray-400 text-xs">{statusText}</p>
         </div>
 
         <div className="rpg-panel p-4">
-          <div className="w-full bg-gray-800 h-4 rounded overflow-hidden">
+          <div className="w-full bg-purple-100 h-4 rounded-full overflow-hidden">
             <div
-              className="h-full bg-green-500 transition-all duration-500"
+              className="h-full bg-gradient-to-r from-pink-400 to-purple-500 transition-all duration-500 rounded-full"
               style={{ width: `${progress}%` }}
             />
           </div>
-          <p className="text-green-400 text-xs text-center mt-2">{progress}%</p>
+          <p className="text-purple-500 text-xs text-center mt-2 font-bold">{progress}%</p>
         </div>
 
-        <p className="text-gray-600 text-xs">審判AIが議論を分析しています...</p>
+        <p className="text-gray-400 text-xs">審判AIが議論を分析しています...</p>
       </div>
     </div>
   )
@@ -109,7 +110,7 @@ function JudgingContent() {
 
 export default function JudgingPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-green-400">Loading...</div>}>
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-purple-400">Loading...</div>}>
       <JudgingContent />
     </Suspense>
   )

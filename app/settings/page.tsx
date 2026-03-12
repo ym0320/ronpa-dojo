@@ -57,7 +57,7 @@ export default function SettingsPage() {
     <div className="min-h-screen flex flex-col px-4 py-6 space-y-4">
       <div className="flex items-center gap-3 mb-2">
         <button onClick={() => router.push('/')} className="rpg-btn px-3 py-2 text-xs">← 戻る</button>
-        <h1 className="text-green-400 text-sm font-bold">⚙️ 設定 / マイページ</h1>
+        <h1 className="text-purple-500 text-sm font-bold">⚙️ 設定 / マイページ</h1>
       </div>
 
       {/* Profile */}
@@ -68,27 +68,27 @@ export default function SettingsPage() {
             {editingNick ? (
               <div className="flex gap-2">
                 <input value={newNick} onChange={e => setNewNick(e.target.value.slice(0, 12))}
-                       className="flex-1 px-2 py-1 text-xs rounded" maxLength={12} autoFocus />
+                       className="flex-1 px-2 py-1 text-xs rounded-lg" maxLength={12} autoFocus />
                 <button onClick={handleSaveNick} className="rpg-btn px-2 py-1 text-xs">保存</button>
                 <button onClick={() => setEditingNick(false)} className="rpg-btn rpg-btn-danger px-2 py-1 text-xs">✕</button>
               </div>
             ) : (
               <div className="flex items-center gap-2">
-                <span className="text-white font-bold text-sm">{user.nickname}</span>
-                <button onClick={() => setEditingNick(true)} className="text-gray-500 text-xs hover:text-green-400">✏️</button>
+                <span className="text-gray-700 font-bold text-sm">{user.nickname}</span>
+                <button onClick={() => setEditingNick(true)} className="text-gray-400 text-xs hover:text-pink-400">✏️</button>
               </div>
             )}
-            <p className="text-gray-500 text-xs mt-1">{user.authProvider === 'guest' ? 'ゲストユーザー' : user.authProvider}</p>
+            <p className="text-gray-400 text-xs mt-1">{user.authProvider === 'guest' ? 'ゲストユーザー' : user.authProvider}</p>
           </div>
         </div>
 
         {/* Badges */}
         {badges.length > 0 && (
           <div>
-            <p className="text-green-600 text-xs mb-2">称号・バッジ</p>
+            <p className="text-purple-400 text-xs mb-2 font-bold">称号・バッジ</p>
             <div className="flex flex-wrap gap-2">
               {badges.map(b => (
-                <span key={b.type} className="px-2 py-1 bg-yellow-900/30 border border-yellow-700 text-yellow-400 text-xs rounded">
+                <span key={b.type} className="px-2 py-1 bg-orange-50 border border-orange-200 text-orange-500 text-xs rounded-full font-bold">
                   {b.name}
                 </span>
               ))}
@@ -99,45 +99,45 @@ export default function SettingsPage() {
 
       {/* Stats */}
       <div className="rpg-panel p-4">
-        <h2 className="text-green-400 text-xs font-bold mb-4">📊 成績</h2>
+        <h2 className="text-purple-500 text-xs font-bold mb-4">📊 成績</h2>
         <div className="grid grid-cols-2 gap-3 text-xs">
-          <div className="bg-gray-950 rounded p-3">
-            <p className="text-gray-500">総対戦数</p>
-            <p className="text-white text-xl font-bold">{stats.totalDebates}</p>
+          <div className="bg-pink-50 rounded-xl p-3">
+            <p className="text-gray-400">総対戦数</p>
+            <p className="text-gray-700 text-xl font-bold">{stats.totalDebates}</p>
           </div>
-          <div className="bg-gray-950 rounded p-3">
-            <p className="text-gray-500">勝率</p>
-            <p className="text-green-400 text-xl font-bold">{stats.winRate}%</p>
+          <div className="bg-purple-50 rounded-xl p-3">
+            <p className="text-gray-400">勝率</p>
+            <p className="text-pink-500 text-xl font-bold">{stats.winRate}%</p>
           </div>
-          <div className="bg-gray-950 rounded p-3">
-            <p className="text-gray-500">勝 / 負 / 分</p>
-            <p className="text-white text-sm font-bold">{stats.wins} / {stats.losses} / {stats.draws}</p>
+          <div className="bg-blue-50 rounded-xl p-3">
+            <p className="text-gray-400">勝 / 負 / 分</p>
+            <p className="text-gray-700 text-sm font-bold">{stats.wins} / {stats.losses} / {stats.draws}</p>
           </div>
-          <div className="bg-gray-950 rounded p-3">
-            <p className="text-gray-500">平均スコア</p>
-            <p className="text-white text-xl font-bold">{stats.avgScore}</p>
+          <div className="bg-orange-50 rounded-xl p-3">
+            <p className="text-gray-400">平均スコア</p>
+            <p className="text-gray-700 text-xl font-bold">{stats.avgScore}</p>
           </div>
-          <div className="bg-gray-950 rounded p-3">
-            <p className="text-gray-500">最高スコア</p>
-            <p className="text-yellow-400 text-xl font-bold">{stats.maxScore}</p>
+          <div className="bg-yellow-50 rounded-xl p-3">
+            <p className="text-gray-400">最高スコア</p>
+            <p className="text-yellow-500 text-xl font-bold">{stats.maxScore}</p>
           </div>
-          <div className="bg-gray-950 rounded p-3">
-            <p className="text-gray-500">最大連勝</p>
-            <p className="text-purple-400 text-xl font-bold">{stats.maxStreak}</p>
+          <div className="bg-violet-50 rounded-xl p-3">
+            <p className="text-gray-400">最大連勝</p>
+            <p className="text-purple-500 text-xl font-bold">{stats.maxStreak}</p>
           </div>
         </div>
 
         {winRateByCategory.length > 0 && (
           <div className="mt-4">
-            <p className="text-green-600 text-xs mb-2">カテゴリ別勝率</p>
+            <p className="text-purple-400 text-xs mb-2 font-bold">カテゴリ別勝率</p>
             <div className="space-y-1.5">
               {winRateByCategory.map(({ cat, total, wins, rate }) => (
                 <div key={cat} className="flex items-center gap-2 text-xs">
-                  <span className="text-gray-400 w-28 truncate shrink-0">{cat}</span>
-                  <div className="flex-1 bg-gray-800 h-2 rounded overflow-hidden">
-                    <div className="h-full bg-green-600" style={{ width: `${rate}%` }} />
+                  <span className="text-gray-500 w-28 truncate shrink-0">{cat}</span>
+                  <div className="flex-1 bg-purple-100 h-2 rounded-full overflow-hidden">
+                    <div className="h-full bg-gradient-to-r from-pink-400 to-purple-500 rounded-full" style={{ width: `${rate}%` }} />
                   </div>
-                  <span className="text-gray-400 w-16 text-right">{wins}/{total} ({rate}%)</span>
+                  <span className="text-gray-500 w-16 text-right">{wins}/{total} ({rate}%)</span>
                 </div>
               ))}
             </div>
@@ -147,10 +147,10 @@ export default function SettingsPage() {
 
       {/* Settings */}
       <div className="rpg-panel p-4 space-y-3">
-        <h2 className="text-green-400 text-xs font-bold mb-2">設定</h2>
+        <h2 className="text-purple-500 text-xs font-bold mb-2">設定</h2>
 
-        <div className="flex items-center justify-between py-2 border-b border-gray-800">
-          <span className="text-gray-300 text-xs">🔊 効果音</span>
+        <div className="flex items-center justify-between py-2 border-b border-gray-100">
+          <span className="text-gray-500 text-xs">🔊 効果音</span>
           <button onClick={handleToggleSound}
                   className={`rpg-btn px-4 py-1 text-xs ${soundEnabled ? '' : 'opacity-50'}`}>
             {soundEnabled ? 'ON' : 'OFF'}
@@ -158,8 +158,8 @@ export default function SettingsPage() {
         </div>
 
         <div className="py-2">
-          <p className="text-gray-400 text-xs mb-1">アカウント連携</p>
-          <p className="text-gray-600 text-xs">Google / X ログインは今後対応予定</p>
+          <p className="text-gray-500 text-xs mb-1">アカウント連携</p>
+          <p className="text-gray-400 text-xs">Google / X ログインは今後対応予定</p>
         </div>
 
         <button onClick={() => setShowDeleteConfirm(true)}
@@ -169,7 +169,7 @@ export default function SettingsPage() {
       </div>
 
       {showDeleteConfirm && (
-        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-30 px-6">
+        <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-30 px-6">
           <div className="rpg-panel p-6 w-full max-w-sm space-y-4">
             <p className="text-red-400 text-sm text-center font-bold">⚠️ 全データを削除しますか？</p>
             <p className="text-gray-400 text-xs text-center">この操作は取り消せません。履歴・スタッツ・バッジが全て消えます。</p>
