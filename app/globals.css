@@ -1,54 +1,57 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=DotGothic16&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap');
 @import "tailwindcss";
 
 :root {
-  --color-bg: #0a0a0f;
-  --color-panel: #0d1117;
-  --color-border: #2d5a27;
-  --color-accent: #4ade80;
-  --color-text: #e2e8f0;
-  --color-dim: #94a3b8;
+  --color-bg: #FFF8F0;
+  --color-panel: #FFFFFF;
+  --color-border: #E8E0F0;
+  --color-accent: #FF6B9D;
+  --color-accent2: #845EF7;
+  --color-accent3: #FFA94D;
+  --color-text: #2D2D3F;
+  --color-dim: #8B8BA3;
 }
 
 body {
   background-color: var(--color-bg);
   color: var(--color-text);
-  font-family: 'DotGothic16', monospace;
+  font-family: 'Zen Maru Gothic', sans-serif;
 }
 
 .pixel-border {
-  border: 3px solid var(--color-border);
-  box-shadow: 0 0 0 1px var(--color-border), inset 0 0 0 1px var(--color-border);
-  image-rendering: pixelated;
+  border: 2px solid var(--color-border);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(132, 94, 247, 0.08);
 }
 
 .pixel-border-accent {
-  border: 3px solid var(--color-accent);
-  box-shadow: 0 0 8px rgba(74, 222, 128, 0.3), inset 0 0 0 1px rgba(74, 222, 128, 0.1);
+  border: 2px solid var(--color-accent);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(255, 107, 157, 0.2);
 }
 
 .rpg-btn {
   padding: 0.75rem 1.5rem;
   font-size: 0.875rem;
   font-weight: 700;
-  transition: all 100ms;
-  border: 3px solid #2d5a27;
-  background: linear-gradient(180deg, #0d1f0d 0%, #051005 100%);
-  color: #4ade80;
-  box-shadow: 0 4px 0 #1a3a1a;
-  image-rendering: pixelated;
+  transition: all 150ms ease;
+  border: none;
+  background: linear-gradient(135deg, #FF6B9D 0%, #845EF7 100%);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(255, 107, 157, 0.3);
+  border-radius: 14px;
   cursor: pointer;
 }
 
 .rpg-btn:hover {
-  background: linear-gradient(180deg, #163a16 0%, #0d1f0d 100%);
-  box-shadow: 0 6px 0 #1a3a1a;
+  background: linear-gradient(135deg, #FF85B1 0%, #9775FA 100%);
+  box-shadow: 0 6px 20px rgba(255, 107, 157, 0.4);
   transform: translateY(-2px);
 }
 
 .rpg-btn:active {
-  box-shadow: 0 1px 0 #1a3a1a;
-  transform: translateY(3px);
+  box-shadow: 0 2px 8px rgba(255, 107, 157, 0.2);
+  transform: translateY(1px);
 }
 
 .rpg-btn:disabled {
@@ -58,73 +61,64 @@ body {
 }
 
 .rpg-btn-danger {
-  border-color: #5a2727;
-  background: linear-gradient(180deg, #1f0d0d 0%, #100505 100%);
-  color: #f87171;
-  box-shadow: 0 4px 0 #3a1a1a;
+  background: linear-gradient(135deg, #FF6B6B 0%, #EE5A24 100%);
+  box-shadow: 0 4px 14px rgba(255, 107, 107, 0.3);
 }
 
 .rpg-btn-danger:hover {
-  background: linear-gradient(180deg, #3a1616 0%, #1f0d0d 100%);
-  box-shadow: 0 6px 0 #3a1a1a;
+  background: linear-gradient(135deg, #FF8585 0%, #F0713A 100%);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
 }
 
 .rpg-panel {
-  background: #0d1117;
-  border: 3px solid #2d5a27;
-  box-shadow: 0 0 0 1px #1a3a1a;
+  background: #FFFFFF;
+  border: 2px solid #E8E0F0;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(132, 94, 247, 0.08);
 }
 
 .blackboard {
   background-image:
-    linear-gradient(rgba(255,255,255,0.01) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px);
-  background-size: 32px 32px;
-  background-color: #0f1f14;
+    radial-gradient(circle at 20% 30%, rgba(255, 107, 157, 0.04) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(132, 94, 247, 0.04) 0%, transparent 50%);
+  background-color: var(--color-bg);
 }
 
 .blink {
-  animation: blink 1s step-end infinite;
+  animation: blink 1.5s ease-in-out infinite;
 }
 
 @keyframes blink {
-  50% { opacity: 0; }
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
 }
 
 .scanlines::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0,0,0,0.15) 2px,
-    rgba(0,0,0,0.15) 4px
-  );
-  pointer-events: none;
+  display: none;
 }
 
 .title-glow {
-  text-shadow: 0 0 10px #4ade80, 0 0 20px #4ade80, 0 0 40px #4ade80;
-  animation: titlePulse 2s ease-in-out infinite;
-}
-
-@keyframes titlePulse {
-  0%, 100% { text-shadow: 0 0 10px #4ade80, 0 0 20px #4ade80, 0 0 40px #4ade80; }
-  50% { text-shadow: 0 0 5px #4ade80, 0 0 10px #4ade80; }
+  background: linear-gradient(135deg, #FF6B9D, #845EF7, #FFA94D);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: none;
 }
 
 .chat-bubble-user {
-  background: linear-gradient(135deg, #1a3a2a 0%, #0d2a1a 100%);
-  border: 2px solid #2d5a27;
-  border-radius: 12px 12px 4px 12px;
+  background: linear-gradient(135deg, #FF6B9D 0%, #FF85B1 100%);
+  border: none;
+  border-radius: 20px 20px 6px 20px;
+  color: #fff;
+  box-shadow: 0 2px 10px rgba(255, 107, 157, 0.2);
 }
 
 .chat-bubble-ai {
-  background: linear-gradient(135deg, #1a1a3a 0%, #0d0d2a 100%);
-  border: 2px solid #2d2d5a;
-  border-radius: 12px 12px 12px 4px;
+  background: linear-gradient(135deg, #F0ECFF 0%, #E8E0F0 100%);
+  border: none;
+  border-radius: 20px 20px 20px 6px;
+  color: #2D2D3F;
+  box-shadow: 0 2px 10px rgba(132, 94, 247, 0.1);
 }
 
 .loading-dots::after {
@@ -140,14 +134,15 @@ body {
 }
 
 input, textarea {
-  background: #0a0a0f;
-  border: 2px solid #2d5a27;
-  color: #e2e8f0;
-  font-family: 'DotGothic16', monospace;
+  background: #F8F5FF;
+  border: 2px solid #E8E0F0;
+  color: #2D2D3F;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  border-radius: 12px;
 }
 
 input:focus, textarea:focus {
   outline: none;
-  border-color: #4ade80;
-  box-shadow: 0 0 8px rgba(74, 222, 128, 0.3);
+  border-color: #845EF7;
+  box-shadow: 0 0 0 3px rgba(132, 94, 247, 0.15);
 }

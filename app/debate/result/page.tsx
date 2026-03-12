@@ -6,14 +6,14 @@ import { DebateSession } from '@/lib/types'
 function ScoreBar({ label, value, max = 20 }: { label: string; value: number; max?: number }) {
   return (
     <div className="flex items-center gap-2">
-      <span className="text-gray-400 text-xs w-20 shrink-0">{label}</span>
-      <div className="flex-1 bg-gray-800 h-3 rounded overflow-hidden">
+      <span className="text-gray-500 text-xs w-20 shrink-0">{label}</span>
+      <div className="flex-1 bg-purple-100 h-3 rounded-full overflow-hidden">
         <div
-          className="h-full bg-green-500 transition-all duration-700"
+          className="h-full bg-gradient-to-r from-pink-400 to-purple-500 transition-all duration-700 rounded-full"
           style={{ width: `${(value / max) * 100}%` }}
         />
       </div>
-      <span className="text-green-400 text-xs w-10 text-right">{value}/{max}</span>
+      <span className="text-purple-500 text-xs w-10 text-right font-bold">{value}/{max}</span>
     </div>
   )
 }
@@ -37,10 +37,10 @@ function ResultContent() {
   )
 
   const resultConfig = {
-    win: { label: '勝利！', emoji: '🏆', color: 'text-yellow-400', glow: 'shadow-yellow-400/50' },
-    lose: { label: '敗北...', emoji: '💀', color: 'text-red-400', glow: 'shadow-red-400/50' },
-    draw: { label: '引き分け', emoji: '🤝', color: 'text-blue-400', glow: 'shadow-blue-400/50' },
-    invalid: { label: '判定不能', emoji: '❓', color: 'text-gray-400', glow: '' },
+    win: { label: '勝利！', emoji: '🏆', color: 'text-yellow-500' },
+    lose: { label: '敗北...', emoji: '💀', color: 'text-red-400' },
+    draw: { label: '引き分け', emoji: '🤝', color: 'text-blue-500' },
+    invalid: { label: '判定不能', emoji: '❓', color: 'text-gray-400' },
   }
 
   const config = resultConfig[session.result || 'invalid']
@@ -48,22 +48,22 @@ function ResultContent() {
   const commentParts = session.judgeComment?.split('\n\n') || []
 
   return (
-    <div className="min-h-screen flex flex-col px-4 py-6 space-y-4 relative scanlines">
+    <div className="min-h-screen flex flex-col px-4 py-6 space-y-4 relative">
       {/* Result header */}
       <div className="rpg-panel p-6 text-center">
         <div className="text-6xl mb-3">{config.emoji}</div>
-        <h1 className={`text-2xl font-bold ${config.color} mb-2`}
-            style={{ fontFamily: "'Press Start 2P', monospace", fontSize: '1.5rem', lineHeight: '2' }}>
+        <h1 className={`text-2xl font-black ${config.color} mb-2 title-glow`}
+            style={{ fontFamily: "'Zen Maru Gothic', sans-serif", fontSize: '1.5rem', lineHeight: '2' }}>
           {config.label}
         </h1>
         <p className="text-gray-400 text-xs">{session.topic}</p>
         {session.endReason === 'ai_surrender' && (
-          <span className="inline-block mt-2 px-2 py-1 bg-yellow-900/30 border border-yellow-700 text-yellow-400 text-xs">
+          <span className="inline-block mt-2 px-3 py-1 bg-yellow-50 border border-yellow-200 text-yellow-500 text-xs rounded-full font-bold">
             AI降参勝ち
           </span>
         )}
         {session.endReason === 'user_surrender' && (
-          <span className="inline-block mt-2 px-2 py-1 bg-red-900/30 border border-red-700 text-red-400 text-xs">
+          <span className="inline-block mt-2 px-3 py-1 bg-red-50 border border-red-200 text-red-400 text-xs rounded-full font-bold">
             ギブアップ負け
           </span>
         )}
@@ -73,8 +73,8 @@ function ResultContent() {
       {session.score !== undefined && session.result !== 'invalid' && (
         <div className="rpg-panel p-4 space-y-3">
           <div className="flex items-baseline justify-between mb-2">
-            <h2 className="text-green-400 text-sm font-bold">スコア</h2>
-            <span className="text-2xl font-bold text-white">{session.score}<span className="text-gray-500 text-sm">/100</span></span>
+            <h2 className="text-purple-500 text-sm font-bold">スコア</h2>
+            <span className="text-2xl font-bold text-gray-700">{session.score}<span className="text-gray-400 text-sm">/100</span></span>
           </div>
           <ScoreBar label="論理性" value={session.scoreLogic || 0} />
           <ScoreBar label="根拠の強さ" value={session.scoreEvidence || 0} />
@@ -87,15 +87,15 @@ function ResultContent() {
       {/* Judge comment */}
       {session.judgeComment && (
         <div className="rpg-panel p-4 space-y-3">
-          <h2 className="text-green-400 text-sm font-bold mb-3">⚖️ 判定コメント</h2>
+          <h2 className="text-purple-500 text-sm font-bold mb-3">⚖️ 判定コメント</h2>
           {commentParts.map((part, i) => (
-            <p key={i} className="text-gray-300 text-xs leading-relaxed">{part}</p>
+            <p key={i} className="text-gray-600 text-xs leading-relaxed">{part}</p>
           ))}
         </div>
       )}
 
       {hasError && (
-        <div className="rpg-panel p-4 bg-red-900/20 border-red-700">
+        <div className="rpg-panel p-4 bg-red-50 border-red-200">
           <p className="text-red-400 text-xs">判定中にエラーが発生しましたが、議論データは保存されました。</p>
         </div>
       )}
@@ -127,7 +127,7 @@ function ResultContent() {
 
 export default function ResultPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-green-400">Loading...</div>}>
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-purple-400">Loading...</div>}>
       <ResultContent />
     </Suspense>
   )

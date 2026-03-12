@@ -27,7 +27,7 @@ export default function ResumePage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <p className="text-green-400 text-sm">再開中...</p>
+      <p className="text-purple-400 text-sm font-bold">再開中...</p>
     </div>
   )
 }

@@ -17,13 +17,13 @@ export default function HistoryPage() {
   const filtered = filter === 'all' ? history : history.filter(h => h.result === filter)
 
   const resultLabel: Record<string, string> = { win: '勝ち', lose: '負け', draw: '引き分け', invalid: '判定不能' }
-  const resultColor: Record<string, string> = { win: 'text-yellow-400', lose: 'text-red-400', draw: 'text-blue-400', invalid: 'text-gray-400' }
+  const resultColor: Record<string, string> = { win: 'text-yellow-500', lose: 'text-red-400', draw: 'text-blue-500', invalid: 'text-gray-400' }
 
   return (
     <div className="min-h-screen flex flex-col px-4 py-6">
       <div className="flex items-center gap-3 mb-6">
         <button onClick={() => router.push('/')} className="rpg-btn px-3 py-2 text-xs">← 戻る</button>
-        <h1 className="text-green-400 text-sm font-bold">📜 議論履歴</h1>
+        <h1 className="text-purple-500 text-sm font-bold">📜 議論履歴</h1>
       </div>
 
       {/* Filter */}
@@ -38,7 +38,7 @@ export default function HistoryPage() {
 
       {filtered.length === 0 && (
         <div className="rpg-panel p-8 text-center">
-          <p className="text-gray-500 text-sm">履歴がありません</p>
+          <p className="text-gray-400 text-sm">履歴がありません</p>
           <button onClick={() => router.push('/debate/setup')} className="rpg-btn mt-4 px-4 py-2 text-xs">
             議論を始める
           </button>
@@ -53,8 +53,8 @@ export default function HistoryPage() {
               className="w-full p-4 text-left flex items-start justify-between gap-2"
             >
               <div className="flex-1 min-w-0">
-                <p className="text-white text-xs font-bold truncate">{session.topic}</p>
-                <p className="text-gray-500 text-xs mt-1">
+                <p className="text-gray-700 text-xs font-bold truncate">{session.topic}</p>
+                <p className="text-gray-400 text-xs mt-1">
                   {new Date(session.createdAt).toLocaleDateString('ja-JP')} · {session.category}
                 </p>
               </div>
@@ -69,16 +69,16 @@ export default function HistoryPage() {
             </button>
 
             {expandedId === session.id && (
-              <div className="border-t border-gray-800 p-4 space-y-3">
+              <div className="border-t border-gray-100 p-4 space-y-3">
                 <div className="grid grid-cols-2 gap-2 text-xs">
-                  <div><span className="text-gray-500">あなた: </span><span className="text-green-400">{session.userStance}</span></div>
-                  <div><span className="text-gray-500">AI: </span><span className="text-red-400">{session.aiStance}</span></div>
-                  <div><span className="text-gray-500">ターン数: </span><span className="text-white">{session.currentTurn}/15</span></div>
-                  <div><span className="text-gray-500">終了: </span><span className="text-white">{session.endReason || '-'}</span></div>
+                  <div><span className="text-gray-400">あなた: </span><span className="text-pink-500 font-bold">{session.userStance}</span></div>
+                  <div><span className="text-gray-400">AI: </span><span className="text-purple-500 font-bold">{session.aiStance}</span></div>
+                  <div><span className="text-gray-400">ターン数: </span><span className="text-gray-700 font-bold">{session.currentTurn}/15</span></div>
+                  <div><span className="text-gray-400">終了: </span><span className="text-gray-700 font-bold">{session.endReason || '-'}</span></div>
                 </div>
 
                 {session.judgeComment && (
-                  <div className="bg-gray-950 rounded p-3 text-xs text-gray-300 leading-relaxed">
+                  <div className="bg-purple-50 rounded-xl p-3 text-xs text-gray-600 leading-relaxed">
                     {session.judgeComment.split('\n\n')[0]}
                   </div>
                 )}
